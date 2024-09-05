@@ -6,8 +6,9 @@ import Home from './pages/home';
 import Tasks from './pages/tasks';
 import Footer from './components/footer';
 import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css'; // Import the CSS file
-import CreateTask from './pages/createTask';
+import 'react-toastify/dist/ReactToastify.css'; 
+import CreateOrUpdateTask from './pages/createOrUpdateTask';
+import TaskInfos from './pages/taskInfos';
 
 function App() {
   return (
@@ -20,7 +21,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/tasks" element={<Tasks />} />
-          <Route path="/tasks/create" element={<CreateTask/>} />
+          <Route path="/tasks/createOrUpdate/:id" element={<CreateOrUpdateTask/>} />
+          <Route path="/tasks/info/:id" element={<TaskInfos/>} />
         </Routes>
         <Footer />
       </main>

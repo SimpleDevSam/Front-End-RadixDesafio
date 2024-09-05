@@ -1,8 +1,10 @@
+import { TaskStatus } from "./taskStatus";
+
 export interface Task {
     id: string;
     title: string;
-    "key-words": string[];
-    status: number;
+    keywords: string[];
+    status: TaskStatus;
     creationDate: string;
     updatedDate: string;
 }

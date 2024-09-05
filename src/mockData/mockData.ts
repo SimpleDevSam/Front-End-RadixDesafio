@@ -2,7 +2,7 @@ const tasks = [
     {
       "id": "3dedd5db-eb5e-4f96-8e9a-77c4a7cec7f2",
       "title": "Desenvolver front-end para desafio radix",
-      "key-words": ["Frontend", "UI"],
+      "keywords": ["Frontend", "UI"],
       "status": 0,
       "creationDate": "2024-09-04",
       "updatedDate": "2024-09-04"
@@ -10,7 +10,7 @@ const tasks = [
     {
       "id": "d2fb100e-bd6b-4fca-9d44-dd291dae826a",
       "title": "Fazer mock data para preencher o front-end",
-      "key-words": ["React", "JavaScript"],
+      "keywords": ["React", "JavaScript"],
       "status": 1,
       "creationDate": "2024-09-04",
       "updatedDate": "2024-09-04"
@@ -18,7 +18,7 @@ const tasks = [
     {
       "id": "f35fa61d-7cc8-4c08-84f7-82421369715f",
       "title": "Fazer página das tasks",
-      "key-words": ["CSS", "HTML"],
+      "keywords": ["CSS", "HTML"],
       "status": 1,
       "creationDate": "2024-09-04",
       "updatedDate": "2024-09-04"
@@ -26,7 +26,7 @@ const tasks = [
     {
       "id": "30951518-7a1f-4640-87b3-53d6e9d89e3b",
       "title": "Desenvolver back-end para o desafio",
-      "key-words": ["API", "Backend"],
+      "keywords": ["API", "Backend"],
       "status": 2,
       "creationDate": "2024-09-04",
       "updatedDate": "2024-09-04"
