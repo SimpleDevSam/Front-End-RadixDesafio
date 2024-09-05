@@ -5,6 +5,7 @@ import { FaTrash } from "react-icons/fa";
 import { BsPencil } from "react-icons/bs";
 import { FaPlus } from "react-icons/fa6";
 import { BsBoxArrowInUpRight } from "react-icons/bs";
+import { useNavigate } from 'react-router-dom';
 
 
 interface Task {
@@ -17,13 +18,18 @@ interface Task {
 }
 
 const statusColors = {
-  [TaskStatus.Pending]: 'bg-custom-red',
-  [TaskStatus.InProgress]: 'bg-custom-purple',
-  [TaskStatus.Concluded]: 'bg-custom-green'
+  [TaskStatus.Pendente]: 'bg-custom-red',
+  [TaskStatus.EmProgresso]: 'bg-custom-purple',
+  [TaskStatus.Concluída]: 'bg-custom-green'
 };
 
 const TasksPage = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
+  const navigate = useNavigate();
+
+  const handleNavigateToCreateTask = () => {
+    navigate('/tasks/create');
+}
 
   useEffect(() => {
     const fetchTasks = async () => {
@@ -42,7 +48,7 @@ const TasksPage = () => {
     <div className="p-8 min-h-screen space flex flex-col space-y-16">
       <div className='flex flex-row justify-between'>
         <p className="text-2xl font-bold text-custom-purple mb-4">Ver tarefas</p>
-        <div className='cursor-pointer flex items-center gap-x-2 px-3 py-1 rounded-full bg-white outline outline-custom-purple outline-1 w-1/8'>
+        <div onClick={handleNavigateToCreateTask} className='cursor-pointer flex items-center gap-x-2 px-3 py-1 rounded-full bg-white outline outline-custom-purple outline-1 w-1/8'>
           <FaPlus className='text-custom-purple text-4xl' />
           <p className='text-bottom'>Adicionar Task</p>
         </div>

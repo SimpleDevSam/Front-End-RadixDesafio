@@ -26,15 +26,15 @@ const Home = () => {
         fetchTasks();
     }, []);
 
-    const isTasksEmpty = tasks.length == 0
-
-    const pendingTasksCount = tasks.filter(task => task.status === TaskStatus.Pending).length;
-    const inProgressTasksCount = tasks.filter(task => task.status === TaskStatus.InProgress).length;
-    const concludedTasksCount = tasks.filter(task => task.status === TaskStatus.Concluded).length;
-
     const handleNavigateToTasks = () => {
         navigate('tasks');
     }
+
+    const isTasksEmpty = tasks.length === 0
+
+    const pendingTasksCount = tasks.filter(task => task.status === TaskStatus.Pendente).length;
+    const inProgressTasksCount = tasks.filter(task => task.status === TaskStatus.EmProgresso).length;
+    const concludedTasksCount = tasks.filter(task => task.status === TaskStatus.Concluída).length;
 
     return (
         <div className="p-8 min-h-screen space flex flex-col space-y-16">
@@ -65,7 +65,7 @@ const Home = () => {
                                 <p className="text-xl text-custom-green">Tarefas Concluídas</p>
                             </div>
                         </div>
-                        <button onClick={handleNavigateToTasks} className="w-1/2  p-4 my-24 border-2 self-center border-custom-purple text-custom-purple font-bold rounded-lg hover:bg-custom-purple hover:text-white transition duration-300">
+                        <button onClick={handleNavigateToTasks} className="w-1/2  p-4 my-24 border-2 self-center border-custom-purple text-custom-purple font-bold rounded-full hover:bg-custom-purple hover:text-white transition duration-300">
                             Ver todas as tarefas
                         </button>
                     </div>
