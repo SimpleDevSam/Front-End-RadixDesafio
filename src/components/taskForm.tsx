@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { CreateTask, UpdateTask } from "../types/tasks";
+import { useState } from "react";
+import { UpdateTask } from "../types/tasks";
 import { TaskStatus } from "../types/taskStatus";
 import { toast } from "react-toastify";
 import createTask from "../services/create";
@@ -18,9 +18,6 @@ const TaskForm = ({ task }: TaskFormProps) => {
   const { id } = useParams();
   const [inputKeywordValue, setInputKeywordValue] = useState<string>("");
 
-  //Estabelece estado inicial do formulário, preenchendo para update e vazio para create
-  //Seta a lógica do OnSubmit do formulário também distinguindo se é update ou create
-
   const formik = useFormik({
     initialValues: {
       title: task?.title || "",
@@ -28,27 +25,31 @@ const TaskForm = ({ task }: TaskFormProps) => {
       status: getStatusFromString(task?.status) || TaskStatus.Pendente,
       creationDate: task?.creationDate || "",
       updatedDate: task?.updatedDate || "",
-      id: task?.id || "",
+      id: task ? task.id : "", 
     },
     validationSchema: task ? updateTaskSchema : createTaskSchema,
     enableReinitialize: true,
 
     onSubmit: async (values) => {
       try {
+
+        
+
         if (task) {
-          await updateTask(id, values);
+          const taskData = values;
+          await updateTask(id, taskData);
           toast.success("Tarefa atualizada com sucesso");
         } else {
-          await createTask(values);
+          const { id, ...taskData } = values;
+          await createTask(taskData); 
           toast.success("Tarefa criada com sucesso");
         }
       } catch (error: any) {
-        toast.warning("Erro: " + error.message);
+        toast.warning("Erro ao criar/atualizar tarefa: " + error.message);
       }
     },
   });
 
-  //Adição e remoção de palavras-chaves
   const handleAddKeyWord = (e: any) => {
     if (e.key === "Enter" && inputKeywordValue.trim()) {
       e.preventDefault();
@@ -100,11 +101,10 @@ const TaskForm = ({ task }: TaskFormProps) => {
             className="flex-grow bg-transparent outline-none"
             placeholder="Digite e pressione Enter"
           />
-          
-        </div>
-        {formik.touched.keywords && formik.errors.keywords ? (
+          {formik.touched.keywords && formik.errors.keywords ? (
             <p className="text-red-500">{formik.errors.keywords}</p>
           ) : null}
+        </div>
       </div>
 
       <div>

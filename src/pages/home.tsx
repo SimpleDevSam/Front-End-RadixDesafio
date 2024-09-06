@@ -30,6 +30,12 @@ const Home = () => {
         navigate('tasks');
     }
 
+    const handleNavigateToCreateTask = () => {
+        const nonExistingId = "0";
+        const path = '/tasks/createOrUpdate/' + nonExistingId
+        navigate(path);
+    }
+
     const isTasksEmpty = tasks.length === 0
 
     const pendingTasksCount = tasks.filter(task => Number(task.status) === TaskStatus.Pendente).length;
@@ -44,10 +50,20 @@ const Home = () => {
             <div>
                 {isTasksEmpty ?
                     (
-                        <div className='flex flex-row justify-center align w-1/2 gap-x-4 mx-auto' >
-                            <BsEmojiNeutral className='text-custom-purple text-6xl' />
-                            <p className="self-center text-20xl text-custom-purple">Não há tarefas registradas</p>
+                        <div className='flex flex-col justify-center items-center w-1/2 gap-4 mx-auto'>
+                            <div className='flex items-center gap-x-4'>
+                                <BsEmojiNeutral className='text-custom-purple text-6xl' />
+                                <p className="text-2xl text-custom-purple">Não há tarefas registradas</p>
+                            </div>
+                            <button
+                                onClick={handleNavigateToCreateTask}
+                                className="w-1/2 p-4 my-24 border-2 border-custom-purple text-custom-purple font-bold rounded-full hover:bg-custom-purple hover:text-white transition duration-300"
+                            >
+                                Adicionar 1ª tarefa
+                            </button>
                         </div>
+
+
                     )
                     :
                     (<div className='justify-center flex flex-col'>
