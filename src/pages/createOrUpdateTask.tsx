@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import TaskForm from "../components/taskForm";
-import { Task } from "../types/tasks";
+import { UpdateTask } from "../types/tasks";
 import getTask from "../services/getTask";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const CreateOrUpdateTask = () => {
 
-  const [task, setTask] = useState<Task>();
+  const [task, setTask] = useState<UpdateTask>();
   const { id } = useParams();
 
   const isNonExistingId = id === "0";
@@ -17,7 +17,6 @@ const CreateOrUpdateTask = () => {
       const fetchTask = async (taskId: string) => {
         try {
           const fetchedTask = await getTask(taskId);
-          console.log(fetchedTask)
           setTask(fetchedTask);
         } catch (error) {
           toast.error('Falha ao buscar tarefa');
@@ -25,7 +24,7 @@ const CreateOrUpdateTask = () => {
       };
       fetchTask(id);
     }
-  }, []);
+  },[isNonExistingId,id]);
 
   return (
     <div className="p-8 min-h-screen flex flex-col items-center bg-gray-100">

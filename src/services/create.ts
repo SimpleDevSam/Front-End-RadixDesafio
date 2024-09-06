@@ -1,7 +1,15 @@
-import mockData from "../mockData/mockData"
+import { CreateTask } from "../types/tasks";
+import { apiInstance } from "./apiInstance";
 
-const createTask = async () => {
-    return true
-} 
+export const createTask= async (
+    task:CreateTask
+  ): Promise<any> => {
+
+    const response = await apiInstance.post(
+      `/task`,
+      task
+    );
+    return response;
+  };
 
 export default createTask

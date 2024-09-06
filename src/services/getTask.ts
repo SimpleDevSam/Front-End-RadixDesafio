@@ -1,7 +1,14 @@
-import mockData from "../mockData/mockData"
+import { UpdateTask } from "../types/tasks";
+import { apiInstance } from "./apiInstance";
 
-const getTask= async (id:string | undefined) => {
-    return mockData.tasks.find(task => task.id === id)
-} 
+export const getTask= async (
+    id:string
+  ): Promise<UpdateTask> => {
+
+    const response = await apiInstance.get(
+      `/task/${id}`
+    );
+    return response.data.data;
+  };
 
 export default getTask

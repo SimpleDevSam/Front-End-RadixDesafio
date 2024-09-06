@@ -1,18 +1,22 @@
 import { useState, useEffect } from "react";
-import { Task } from "../types/tasks";
+import { CreateTask, UpdateTask } from "../types/tasks";
 import { TaskStatus } from "../types/taskStatus";
 import { toast } from "react-toastify";
+import createTask from "../services/create";
+import { getStatusFromString } from "../shared/getTaskStatusFromString";
+import updateTask from "../services/update";
+import { useParams } from "react-router-dom";
 
 
 interface TaskFormProps {
-  task?: Task; 
+  task?: UpdateTask; 
 }
 
 const TaskForm = ({ task }: TaskFormProps) => {
   
   const [inputKeywordValue, setInputKeywordValue] = useState<string>("");
-  const [formData, setFormData] = useState<Task>({
-    id: "",
+  const {id} = useParams();
+  const [formData, setFormData] = useState<UpdateTask | CreateTask>({
     title: "",
     keywords: [],
     status: TaskStatus.Pendente,
@@ -26,15 +30,12 @@ const TaskForm = ({ task }: TaskFormProps) => {
         id: task.id || "",
         title: task.title || "",
         keywords: task.keywords || [],
-        status: task.status || TaskStatus.Pendente,
+        status: getStatusFromString(task.status) || TaskStatus.Pendente,
         creationDate: task.creationDate || "",
         updatedDate: task.updatedDate || "",
       });
     }
   }, [task]);
-
-
-
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setFormData({
@@ -54,16 +55,27 @@ const TaskForm = ({ task }: TaskFormProps) => {
 
   const handleRemoveKeyword = (index: number) => {
     const newKeyWords = formData.keywords.filter((_, i) => i !== index);
+    console.log(newKeyWords)
     setFormData({ ...formData, keywords: newKeyWords });
   };
 
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (task) {
-      toast.success("Tarefa atualizada com sucesso")
+      try{
+        updateTask(id, formData)
+        toast.success("Tarefa atualizada com sucesso")
+      } catch (error:any) {
+        toast.warning("Erro ao atualizar tarefa" + error.message)
+      }
     } else {
-      toast.success("Tarefa criada com sucesso")
+      try{
+        await createTask(formData)
+        toast.success("Tarefa criada com sucesso")
+      } catch (error:any) {
+        toast.warning("Erro ao criar tarefa" + error.message)
+      }
     }
   };
 
@@ -115,7 +127,7 @@ const TaskForm = ({ task }: TaskFormProps) => {
           >
             <option value="Pendente">Pendente</option>
             <option value="Em Progresso">Em Progresso</option>
-            <option value="Concluído">Concluído</option>
+            <option value="Concluído">Concluída</option>
           </select>
         </div>
 

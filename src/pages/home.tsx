@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import getTasks from '../services/getTasks';
 import { TaskStatus } from '../types/taskStatus';
-import { Task } from '../types/tasks';
+import { UpdateTask } from '../types/tasks';
 import { toast } from 'react-toastify';
 import { BsEmojiNeutral } from "react-icons/bs";
 
@@ -12,7 +12,7 @@ import { BsEmojiNeutral } from "react-icons/bs";
 
 const Home = () => {
     const navigate = useNavigate();
-    const [tasks, setTasks] = useState<Task[]>([])
+    const [tasks, setTasks] = useState<UpdateTask[]>([])
 
     useEffect(() => {
         const fetchTasks = async () => {
@@ -33,7 +33,7 @@ const Home = () => {
     const isTasksEmpty = tasks.length === 0
 
     const pendingTasksCount = tasks.filter(task => task.status === TaskStatus.Pendente).length;
-    const inProgressTasksCount = tasks.filter(task => task.status === TaskStatus.EmProgresso).length;
+    const inProgressTasksCount = tasks.filter(task => task.status === TaskStatus['Em Progresso']).length;
     const concludedTasksCount = tasks.filter(task => task.status === TaskStatus.Concluída).length;
 
     return (

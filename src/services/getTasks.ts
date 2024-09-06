@@ -1,7 +1,8 @@
-import mockData from "../mockData/mockData"
+import { apiInstance } from "./apiInstance";
 
-const getTasks= async () => {
-    return mockData.tasks
-} 
+  async function getTasks() {
+    const response = await apiInstance.get('/task')
+    return response.data.data
+  }
 
 export default getTasks

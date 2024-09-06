@@ -6,7 +6,7 @@ import { BsPencil } from "react-icons/bs";
 import { FaPlus } from "react-icons/fa6";
 import { BsBoxArrowInUpRight } from "react-icons/bs";
 import { useNavigate } from 'react-router-dom';
-import { Task } from '../types/tasks';
+import {  UpdateTask } from '../types/tasks';
 import deleteTask from '../services/deleteTask';
 import { toast } from 'react-toastify';
 
@@ -15,12 +15,12 @@ import { toast } from 'react-toastify';
 
 const statusColors = {
   [TaskStatus.Pendente]: 'bg-custom-red',
-  [TaskStatus.EmProgresso]: 'bg-custom-purple',
+  [TaskStatus['Em Progresso']]: 'bg-custom-purple',
   [TaskStatus.Concluída]: 'bg-custom-green'
 };
 
 const TasksPage = () => {
-  const [tasks, setTasks] = useState<Task[]>([]);
+  const [tasks, setTasks] = useState<UpdateTask[]>([]);
   const navigate = useNavigate();
 
   const handleNavigateToCreateTask = () => {
@@ -38,9 +38,16 @@ const TasksPage = () => {
     navigate(path);
   }
 
+  const removeTask = (taskId:string) => {
+    setTasks((prevTasks) =>
+      prevTasks.filter((task) => task.id !== taskId)
+    );
+  };
+
   const handleDeleteTask = async (id:string) => {
-    const result = await deleteTask (id)
+    const result = await deleteTask(id)
     if(result){
+      removeTask(id)
       toast.success("Task deletada com sucesso")
     } else {
       toast.error("Houve um erro ao deletar a task")
