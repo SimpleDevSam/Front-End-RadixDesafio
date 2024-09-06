@@ -32,9 +32,9 @@ const Home = () => {
 
     const isTasksEmpty = tasks.length === 0
 
-    const pendingTasksCount = tasks.filter(task => task.status === TaskStatus.Pendente).length;
-    const inProgressTasksCount = tasks.filter(task => task.status === TaskStatus['Em Progresso']).length;
-    const concludedTasksCount = tasks.filter(task => task.status === TaskStatus.Concluída).length;
+    const pendingTasksCount = tasks.filter(task => Number(task.status) === TaskStatus.Pendente).length;
+    const inProgressTasksCount = tasks.filter(task => Number(task.status) === TaskStatus['Em Progresso']).length;
+    const concludedTasksCount = tasks.filter(task => Number(task.status) === TaskStatus.Concluída).length;
 
     return (
         <div className="p-8 min-h-screen space flex flex-col space-y-16">
