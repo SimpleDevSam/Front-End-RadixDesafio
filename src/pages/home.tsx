@@ -6,6 +6,7 @@ import { UpdateTask } from '../types/tasks';
 import { toast } from 'react-toastify';
 import { BsEmojiNeutral } from "react-icons/bs";
 import EmptyTask from '../components/emptyTask';
+import LayoutContainer from '../components/layoutContainer';
 
 
 
@@ -44,7 +45,7 @@ const Home = () => {
     const concludedTasksCount = tasks.filter(task => Number(task.status) === TaskStatus.Concluída).length;
 
     return (
-        <div className="p-8 min-h-screen space flex flex-col space-y-16">
+        <LayoutContainer>
             <div className="mb-8  ">
                 <h1 className="text-2xl font-bold text-custom-purple">Dashboard</h1>
             </div>
@@ -84,9 +85,7 @@ const Home = () => {
 
                     )}
             </div>
-
-
-        </div>
+        </LayoutContainer>
     );
 };
 

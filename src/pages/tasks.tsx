@@ -12,6 +12,7 @@ import { toast } from 'react-toastify';
 import formatDate from '../shared/dateHelper';
 import ConfirmationModal from '../components/confirmationModal';
 import EmptyTask from '../components/emptyTask';
+import LayoutContainer from '../components/layoutContainer';
 
 const statusColors = {
   [TaskStatus.Pendente]: 'bg-custom-red',
@@ -97,7 +98,7 @@ const TasksPage = () => {
   }, []);
 
   return (
-    <div className={`p-8 min-h-screen space flex flex-col space-y-16 ${loading ? 'pointer-events-none' : ''}`}>
+    <LayoutContainer>
       <div className='flex flex-row justify-between'>
         <p className="text-2xl font-bold text-custom-purple mb-4">Ver tarefas</p>
         <div onClick={handleNavigateToCreateTask} className='cursor-pointer flex items-center gap-x-2 px-3 py-1 rounded-full bg-white outline outline-custom-purple outline-1 w-1/8 hover:bg-custom-purple hover:text-white transition duration-300'>
@@ -153,7 +154,7 @@ const TasksPage = () => {
           onClose={closeDeleteModal}
         />
       )}
-    </div>
+    </LayoutContainer>
   );
 };
 
