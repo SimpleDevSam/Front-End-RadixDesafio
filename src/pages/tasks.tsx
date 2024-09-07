@@ -6,13 +6,12 @@ import { BsEmojiNeutral, BsPencil } from "react-icons/bs";
 import { FaPlus } from "react-icons/fa6";
 import { BsBoxArrowInUpRight } from "react-icons/bs";
 import { useNavigate } from 'react-router-dom';
-import { UpdateTask } from '../types/tasks';
+import { Task } from '../types/tasks';
 import deleteTask from '../services/deleteTask';
 import { toast } from 'react-toastify';
 import formatDate from '../shared/dateHelper';
-
-
-
+import ConfirmationModal from '../components/confirmationModal';
+import EmptyTask from '../components/emptyTask';
 
 const statusColors = {
   [TaskStatus.Pendente]: 'bg-custom-red',
@@ -21,25 +20,29 @@ const statusColors = {
 };
 
 const TasksPage = () => {
-  const [tasks, setTasks] = useState<UpdateTask[]>([]);
+  const [tasks, setTasks] = useState<Task[]>([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [taskToDelete, setTaskToDelete] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false); // Add loading state
   const navigate = useNavigate();
 
-  const isTasksEmpty = tasks.length === 0
+  const isTasksEmpty = tasks.length === 0;
 
   const handleNavigateToCreateTask = () => {
     const nonExistingId = "0";
-    const path = '/tasks/createOrUpdate/' + nonExistingId
+    const path = '/tasks/createOrUpdate/' + nonExistingId;
     navigate(path);
-  }
+  };
+
   const handleNavigateToUpdateTask = (id: string) => {
-    const path = '/tasks/createOrUpdate/' + id
+    const path = '/tasks/createOrUpdate/' + id;
     navigate(path);
-  }
+  };
 
   const handleNavigateToTaskInfo = (id: string) => {
-    const path = '/tasks/info/' + id
+    const path = '/tasks/info/' + id;
     navigate(path);
-  }
+  };
 
   const removeTask = (taskId: string) => {
     setTasks((prevTasks) =>
@@ -48,15 +51,37 @@ const TasksPage = () => {
   };
 
   const handleDeleteTask = async (id: string) => {
-    const result = await deleteTask(id)
-    if (result) {
-      removeTask(id)
-      toast.success("Task deletada com sucesso")
-    } else {
-      toast.error("Houve um erro ao deletar a task")
+    setLoading(true);
+    try {
+      const result = await deleteTask(id);
+      if (result) {
+        removeTask(id);
+      } else {
+        toast.error("Houve um erro ao deletar a task");
+      }
+    } catch (error) {
+      toast.error("Houve um erro ao deletar a task");
+    } finally {
+      setLoading(false)
     }
+  };
 
-  }
+  const openDeleteModal = (taskId: string) => {
+    setTaskToDelete(taskId);
+    setIsModalOpen(true);
+  };
+
+  const closeDeleteModal = () => {
+    setIsModalOpen(false);
+    setTaskToDelete(null);
+  };
+
+  const confirmDelete = async () => {
+    if (taskToDelete) {
+      await handleDeleteTask(taskToDelete);
+      closeDeleteModal();
+    }
+  };
 
   useEffect(() => {
     const fetchTasks = async () => {
@@ -72,24 +97,19 @@ const TasksPage = () => {
   }, []);
 
   return (
-    <div className="p-8 min-h-screen space flex flex-col space-y-16">
+    <div className={`p-8 min-h-screen space flex flex-col space-y-16 ${loading ? 'pointer-events-none' : ''}`}>
       <div className='flex flex-row justify-between'>
         <p className="text-2xl font-bold text-custom-purple mb-4">Ver tarefas</p>
-        <div onClick={handleNavigateToCreateTask} className='cursor-pointer flex items-center gap-x-2 px-3 py-1 rounded-full bg-white outline outline-custom-purple outline-1 w-1/8 hover:bg-custom-purple hover:text-white transition duration-300' >
-          <FaPlus className='text-custom-purple text-4xl hover:bg-custom-purple hover:text-white  ' />
+        <div onClick={handleNavigateToCreateTask} className='cursor-pointer flex items-center gap-x-2 px-3 py-1 rounded-full bg-white outline outline-custom-purple outline-1 w-1/8 hover:bg-custom-purple hover:text-white transition duration-300'>
+          <FaPlus className='text-custom-purple text-4xl hover:bg-custom-purple hover:text-white' />
           <p className='text-bottom'>Adicionar tarefa</p>
         </div>
       </div>
-      <div className="space-y-6">
+      <div className="space-y-6 justify-center">
         {isTasksEmpty ?
-          (
-            <div className='flex flex-col justify-center items-center w-1/2 gap-4 mx-auto'>
-              <div className='flex items-center gap-x-4'>
-                <BsEmojiNeutral className='text-custom-purple text-6xl' />
-                <p className="text-2xl text-custom-purple">Não há tarefas registradas</p>
-              </div>
-            </div>
-          )
+          <div className='flex flex-col justify-center items-center w-1/2 gap-4 mx-auto'>
+            <EmptyTask />
+          </div>
           :
           tasks.map(task => (
             <div key={task.id} className="p-6 bg-white border border-custom-purple rounded-lg shadow">
@@ -101,30 +121,38 @@ const TasksPage = () => {
                     {TaskStatus[task.status]}
                   </div>
                   <div className="text-sm text-custom-purple w-1/4">
-                    Criada Em: {formatDate(task.creationDate) }
+                    Criada Em: {formatDate(task.creationDate)}
                   </div>
-                  <div className="text-sm text-custom-purple w-1/4 ">
+                  <div className="text-sm text-custom-purple w-1/4">
                     Atualizada Em: {formatDate(task.updatedDate)}
                   </div>
                   <div className='flex flex-row gap-x-6'>
                     <FaTrash
                       className='text-custom-red text-8x1 cursor-pointer'
-                      onClick={() => handleDeleteTask(task.id)}
-                    ></FaTrash>
+                      onClick={() => openDeleteModal(task.id)}
+                    />
                     <BsPencil
                       className='text-custom-purple text-8x1 cursor-pointer'
                       onClick={() => handleNavigateToUpdateTask(task.id)}
-                    ></BsPencil >
+                    />
                     <BsBoxArrowInUpRight
                       className='text-custom-purple text-8x1 cursor-pointer'
                       onClick={() => handleNavigateToTaskInfo(task.id)}
-                    ></BsBoxArrowInUpRight >
+                    />
                   </div>
                 </div>
               </div>
             </div>
           ))}
       </div>
+
+      {isModalOpen && (
+        <ConfirmationModal
+          message="Tem certeza que quer deletar essa tarefa?"
+          onDelete={confirmDelete}
+          onClose={closeDeleteModal}
+        />
+      )}
     </div>
   );
 };

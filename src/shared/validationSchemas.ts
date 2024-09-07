@@ -11,14 +11,6 @@ export const createTaskSchema = Yup.object().shape({
     .min(1, 'A lista de palavras-chave não pode estar vazia.')
     .required('A lista de palavras-chave é obrigatória.'),
   
-
-  creationDate: Yup.date()
-    .required('A data de criação é obrigatória.')
-    .typeError('A data de criação deve ser uma data válida.'),
-
-  updatedDate: Yup.date()
-    .required('A data de atualização é obrigatória.')
-    .typeError('A data de atualização deve ser uma data válida.'),
 });
 
 export const updateTaskSchema = Yup.object().shape({
@@ -38,7 +30,4 @@ export const updateTaskSchema = Yup.object().shape({
     .required('A data de criação é obrigatória.')
     .typeError('A data de criação deve ser uma data válida.'),
 
-  updatedDate: Yup.date()
-    .required('A data de atualização é obrigatória.')
-    .typeError('A data de atualização deve ser uma data válida.'),
 });

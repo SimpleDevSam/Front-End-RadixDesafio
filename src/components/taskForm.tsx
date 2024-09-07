@@ -6,9 +6,8 @@ import createTask from "../services/create";
 import { getStatusFromString } from "../shared/getTaskStatusFromString";
 import updateTask from "../services/update";
 import { useParams } from "react-router-dom";
-import formatDate from "../shared/dateHelper";
 import { useFormik } from "formik";
-import { createTaskSchema, updateTaskSchema } from "../shared/validationSchemas"; 
+import { createTaskSchema, updateTaskSchema } from "../shared/validationSchemas";
 
 interface TaskFormProps {
   task?: UpdateTask;
@@ -24,28 +23,30 @@ const TaskForm = ({ task }: TaskFormProps) => {
       keywords: task?.keywords || [],
       status: getStatusFromString(task?.status) || TaskStatus.Pendente,
       creationDate: task?.creationDate || "",
-      updatedDate: task?.updatedDate || "",
-      id: task ? task.id : "", 
+      id: task ? task.id : "",
     },
     validationSchema: task ? updateTaskSchema : createTaskSchema,
     enableReinitialize: true,
 
     onSubmit: async (values) => {
       try {
-
-        
-
         if (task) {
           const taskData = values;
           await updateTask(id, taskData);
           toast.success("Tarefa atualizada com sucesso");
         } else {
           const { id, ...taskData } = values;
-          await createTask(taskData); 
+          await createTask(taskData);
           toast.success("Tarefa criada com sucesso");
+          formik.resetForm();
         }
       } catch (error: any) {
-        toast.warning("Erro ao criar/atualizar tarefa: " + error.message);
+        const createOrUpdate = task ? 'atualizar' : 'criar'
+        if (error.code === 'ERR_NETWORK') {
+          toast.warning(`Erro ao ${createOrUpdate} tarefa, não foi possível comunicar com o servidor`);
+          return
+        }
+        toast.warning(`Erro ao ${createOrUpdate} tarefa. ` + error.message);
       }
     },
   });
@@ -98,8 +99,8 @@ const TaskForm = ({ task }: TaskFormProps) => {
             value={inputKeywordValue}
             onChange={(e) => setInputKeywordValue(e.target.value)}
             onKeyDown={handleAddKeyWord}
-            className="flex-grow bg-transparent outline-none"
-            placeholder="Digite e pressione Enter"
+            className="flex-grow bg-transparent outline-none text-xs"
+            placeholder="Digite a palavra e pressione Enter para adicioná-la"
           />
           {formik.touched.keywords && formik.errors.keywords ? (
             <p className="text-red-500">{formik.errors.keywords}</p>
@@ -125,39 +126,6 @@ const TaskForm = ({ task }: TaskFormProps) => {
           <p className="text-red-500">{formik.errors.status}</p>
         ) : null}
       </div>
-
-      <div>
-        <label htmlFor="creationDate" className="block text-custom-blue font-semibold mb-2">Data Criação</label>
-        <input
-          type="date"
-          id="creationDate"
-          name="creationDate"
-          value={formatDate(formik.values.creationDate)}
-          className="w-full px-4 py-1 border border-custom-purple bg-transparent rounded focus:outline-none focus:ring-2 focus:ring-custom-blue"
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-        />
-        {formik.touched.creationDate && formik.errors.creationDate ? (
-          <p className="text-red-500">{formik.errors.creationDate}</p>
-        ) : null}
-      </div>
-
-      <div>
-        <label htmlFor="updatedDate" className="block text-custom-blue font-semibold mb-2">Data Atualização</label>
-        <input
-          type="date"
-          id="updatedDate"
-          name="updatedDate"
-          value={formatDate(formik.values.updatedDate)}
-          className="w-full px-4 py-1 border border-custom-purple bg-transparent rounded focus:outline-none focus:ring-2 focus:ring-custom-blue"
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-        />
-        {formik.touched.updatedDate && formik.errors.updatedDate ? (
-          <p className="text-red-500">{formik.errors.updatedDate}</p>
-        ) : null}
-      </div>
-
       <div className="text-center">
         <button type="submit" className="w-1/2 p-1 border-2 self-center border-custom-purple text-custom-purple font-bold rounded-full hover:bg-custom-purple hover:text-white transition duration-300">
           {task ? "Atualizar Tarefa" : "Criar Tarefa"}

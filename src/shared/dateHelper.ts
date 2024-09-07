@@ -1,4 +1,4 @@
-function formatDate(isoDate: string): string {
+function formatDate(isoDate: Date): string {
     const date = new Date(isoDate);
 
     const day = String(date.getUTCDate()).padStart(2, '0'); 

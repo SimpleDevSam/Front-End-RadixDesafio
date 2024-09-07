@@ -5,6 +5,7 @@ import { TaskStatus } from '../types/taskStatus';
 import { UpdateTask } from '../types/tasks';
 import { toast } from 'react-toastify';
 import { BsEmojiNeutral } from "react-icons/bs";
+import EmptyTask from '../components/emptyTask';
 
 
 
@@ -51,10 +52,7 @@ const Home = () => {
                 {isTasksEmpty ?
                     (
                         <div className='flex flex-col justify-center items-center w-1/2 gap-4 mx-auto'>
-                            <div className='flex items-center gap-x-4'>
-                                <BsEmojiNeutral className='text-custom-purple text-6xl' />
-                                <p className="text-2xl text-custom-purple">Não há tarefas registradas</p>
-                            </div>
+                            <EmptyTask />
                             <button
                                 onClick={handleNavigateToCreateTask}
                                 className="w-1/2 p-4 my-24 border-2 border-custom-purple text-custom-purple font-bold rounded-full hover:bg-custom-purple hover:text-white transition duration-300"
@@ -62,8 +60,6 @@ const Home = () => {
                                 Adicionar 1ª tarefa
                             </button>
                         </div>
-
-
                     )
                     :
                     (<div className='justify-center flex flex-col'>
