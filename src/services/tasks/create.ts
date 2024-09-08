@@ -1,4 +1,5 @@
-import { CreateTask } from "../types/tasks";
+
+import { CreateTask } from "../../types/tasks";
 import { apiInstance } from "./apiInstance";
 
 export const createTask= async (

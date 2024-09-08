@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import TaskForm from "../components/taskForm";
 import { UpdateTask } from "../types/tasks";
-import getTask from "../services/getTask";
+
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import getTask from "../services/tasks/getTask";
 
 const CreateOrUpdateTask = () => {
 

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import getTasks from '../services/getTasks';
+
 import { TaskStatus } from '../types/taskStatus';
 import { FaTrash } from "react-icons/fa";
 import { BsPencil } from "react-icons/bs";
@@ -7,12 +7,14 @@ import { FaPlus } from "react-icons/fa6";
 import { BsBoxArrowInUpRight } from "react-icons/bs";
 import { useNavigate } from 'react-router-dom';
 import { Task } from '../types/tasks';
-import deleteTask from '../services/deleteTask';
+
 import { toast } from 'react-toastify';
 import formatDate from '../shared/dateHelper';
 import ConfirmationModal from '../components/confirmationModal';
 import EmptyTask from '../components/emptyTask';
 import LayoutContainer from '../components/layoutContainer';
+import deleteTask from '../services/tasks/deleteTask';
+import getTasks from '../services/tasks/getTasks';
 
 const statusColors = {
   [TaskStatus.Pendente]: 'bg-custom-red',
@@ -41,7 +43,7 @@ const TasksPage = () => {
   };
 
   const handleNavigateToTaskInfo = (id: string) => {
-    const path = '/tasks/info/' + id;
+    const path = '/news/task/' + id;
     navigate(path);
   };
 

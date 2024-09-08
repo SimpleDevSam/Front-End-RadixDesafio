@@ -1,9 +1,10 @@
-import { UpdateTask } from "../types/tasks";
+
+import { Task} from "../../types/tasks";
 import { apiInstance } from "./apiInstance";
 
 export const getTask= async (
     id:string
-  ): Promise<UpdateTask> => {
+  ): Promise<Task> => {
 
     const response = await apiInstance.get(
       `/task/${id}`

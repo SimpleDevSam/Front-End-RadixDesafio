@@ -2,12 +2,14 @@ import { useState } from "react";
 import { UpdateTask } from "../types/tasks";
 import { TaskStatus } from "../types/taskStatus";
 import { toast } from "react-toastify";
-import createTask from "../services/create";
+
 import { getStatusFromString } from "../shared/getTaskStatusFromString";
-import updateTask from "../services/update";
+
 import { useParams } from "react-router-dom";
 import { useFormik } from "formik";
 import { createTaskSchema, updateTaskSchema } from "../shared/validationSchemas";
+import createTask from "../services/tasks/create";
+import updateTask from "../services/tasks/update";
 
 interface TaskFormProps {
   task?: UpdateTask;

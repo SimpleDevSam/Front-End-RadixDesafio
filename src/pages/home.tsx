@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import getTasks from '../services/getTasks';
+
 import { TaskStatus } from '../types/taskStatus';
 import { UpdateTask } from '../types/tasks';
 import { toast } from 'react-toastify';
 import EmptyTask from '../components/emptyTask';
 import LayoutContainer from '../components/layoutContainer';
+import getTasks from '../services/tasks/getTasks';
 
 
 

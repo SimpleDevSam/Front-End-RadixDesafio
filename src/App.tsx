@@ -8,7 +8,8 @@ import Footer from './components/footer';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; 
 import CreateOrUpdateTask from './pages/createOrUpdateTask';
-import TaskInfos from './pages/taskInfos';
+import TaskNewsInfo from './pages/taskNews';
+
 
 function App() {
   return (
@@ -22,7 +23,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/tasks" element={<Tasks />} />
           <Route path="/tasks/createOrUpdate/:id" element={<CreateOrUpdateTask/>} />
-          <Route path="/tasks/info/:id" element={<TaskInfos/>} />
+          <Route path="/news/task/:id" element={<TaskNewsInfo/>} />
         </Routes>
         <Footer />
       </main>
