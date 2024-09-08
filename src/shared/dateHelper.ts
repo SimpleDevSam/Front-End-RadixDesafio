@@ -5,7 +5,7 @@ function formatDate(isoDate: Date): string {
     const month = String(date.getUTCMonth() + 1).padStart(2, '0'); 
     const year = date.getUTCFullYear();
   
-    return `${year}-${month}-${day}`; 
+    return `${day}/${month}/${year}-`; 
   }
 
   export default formatDate

@@ -53,7 +53,7 @@ const Home = () => {
         <LayoutContainer>
             <div className="mb-8  ">
                 <MainTitle
-                message='DashBoard'/>
+                message='Dashboard'/>
             </div>
             <div>
                 {loading ?  <div className="text-center text-custom-purple">Carregando tarefas...</div>
