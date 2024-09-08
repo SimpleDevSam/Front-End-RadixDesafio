@@ -52,7 +52,6 @@ const TasksPage = () => {
   };
 
   const handleDeleteTask = async (id: string) => {
-    setLoading(true);
     try {
       const result = await deleteTask(id);
       if (result) {
@@ -62,9 +61,7 @@ const TasksPage = () => {
       }
     } catch (error) {
       toast.error("Houve um erro ao deletar a task");
-    } finally {
-      setLoading(false)
-    }
+    } 
   };
 
   const openDeleteModal = (taskId: string) => {
@@ -85,12 +82,15 @@ const TasksPage = () => {
   };
 
   useEffect(() => {
+    setLoading(true)
     const fetchTasks = async () => {
       try {
         const fetchedTasks = await getTasks();
         setTasks(fetchedTasks);
       } catch (error) {
         toast.error('Falha ao buscar tarefas');
+      } finally {
+        setLoading(false)
       }
     };
 
@@ -107,7 +107,10 @@ const TasksPage = () => {
         </div>
       </div>
       <div className="space-y-6 justify-center">
-        {isTasksEmpty ?
+        {loading ?
+          <div className="text-center text-custom-purple">Carregando tarefas...</div>
+         :
+        isTasksEmpty ?
           <div className='flex flex-col justify-center items-center w-1/2 gap-4 mx-auto'>
             <EmptyTask />
           </div>
@@ -117,14 +120,15 @@ const TasksPage = () => {
               <p className="text-lg font-semibold text-custom-purple mb-2">{task.title}</p>
               <div className="flex flex-col space-y-4">
                 <div className="flex flex-row items-center gap-x-24">
-                  <div className="text-sm text-custom-purple w-1/4 flex items-center justify-center">Palavras-chave: {task["keywords"].join(', ')}</div>
-                  <div className={`inline-block px-3 py-1 text-white text-xs font-semibold rounded-full w-1/8 ${statusColors[task.status]}`}>
+                  <div className="text-sm text-custom-purple w-1/4 flex items-center justify-center">Palavras-chave: {task["keywords"].join(', ')}
+                  </div>
+                  <div className={`inline-block px-3 whitespace-nowrap py-1 text-white text-xs font-semibold rounded-full w-1/8 ${statusColors[task.status]}`}>
                     {TaskStatus[task.status]}
                   </div>
-                  <div className="text-sm text-custom-purple w-1/4">
+                  <div className="text-sm text-custom-purple whitespace-nowrap w-1/4">
                     Criada Em: {formatDate(task.creationDate)}
                   </div>
-                  <div className="text-sm text-custom-purple w-1/4">
+                  <div className="text-sm text-custom-purple w-1/4 whitespace-nowrap">
                     Atualizada Em: {formatDate(task.updatedDate)}
                   </div>
                   <div className='flex flex-row gap-x-6'>

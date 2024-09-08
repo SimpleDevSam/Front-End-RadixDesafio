@@ -14,15 +14,19 @@ import LayoutContainer from '../components/layoutContainer';
 const Home = () => {
     const navigate = useNavigate();
     const [tasks, setTasks] = useState<UpdateTask[]>([])
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
+        setLoading(true)
         const fetchTasks = async () => {
             try {
                 const fetchedTasks = await getTasks();
                 setTasks(fetchedTasks);
             } catch (error) {
                 toast.error("Falha ao buscar tarefas")
-            }
+            } finally {
+                setLoading(false)
+              }
         };
         fetchTasks();
     }, []);
@@ -49,7 +53,9 @@ const Home = () => {
                 <h1 className="text-2xl font-bold text-custom-purple">Dashboard</h1>
             </div>
             <div>
-                {isTasksEmpty ?
+                {loading ?  <div className="text-center text-custom-purple">Carregando tarefas...</div>
+                 : 
+                isTasksEmpty ?
                     (
                         <div className='flex flex-col justify-center items-center w-1/2 gap-4 mx-auto'>
                             <EmptyTask />
