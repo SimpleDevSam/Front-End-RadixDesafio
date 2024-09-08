@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 
 import { getStatusFromString } from "../shared/getTaskStatusFromString";
 
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useFormik } from "formik";
 import { createTaskSchema, updateTaskSchema } from "../shared/validationSchemas";
 import createTask from "../services/tasks/create";
@@ -18,6 +18,8 @@ interface TaskFormProps {
 const TaskForm = ({ task }: TaskFormProps) => {
   const { id } = useParams();
   const [inputKeywordValue, setInputKeywordValue] = useState<string>("");
+  
+  const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues: {
@@ -36,11 +38,15 @@ const TaskForm = ({ task }: TaskFormProps) => {
           const taskData = values;
           await updateTask(id, taskData);
           toast.success("Tarefa atualizada com sucesso");
+          navigate('/tasks');
+
         } else {
           const { id, ...taskData } = values;
           await createTask(taskData);
           toast.success("Tarefa criada com sucesso");
           formik.resetForm();
+          navigate('/tasks');
+          
         }
       } catch (error: any) {
         const createOrUpdate = task ? 'atualizar' : 'criar'
@@ -105,7 +111,7 @@ const TaskForm = ({ task }: TaskFormProps) => {
             value={inputKeywordValue}
             onChange={(e) => setInputKeywordValue(e.target.value)}
             onKeyDown={handleAddKeyWord}
-            className="flex-grow bg-transparent outline-none text-xs"
+            className="flex-grow bg-transparent outline-none"
             placeholder="Digite a palavra e pressione Enter para adicioná-la"
           />
           {formik.touched.keywords && formik.errors.keywords ? (
