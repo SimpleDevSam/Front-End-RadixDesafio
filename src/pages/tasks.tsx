@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import getTasks from '../services/getTasks';
 import { TaskStatus } from '../types/taskStatus';
 import { FaTrash } from "react-icons/fa";
-import { BsEmojiNeutral, BsPencil } from "react-icons/bs";
+import { BsPencil } from "react-icons/bs";
 import { FaPlus } from "react-icons/fa6";
 import { BsBoxArrowInUpRight } from "react-icons/bs";
 import { useNavigate } from 'react-router-dom';
@@ -24,7 +24,7 @@ const TasksPage = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [taskToDelete, setTaskToDelete] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false); // Add loading state
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const isTasksEmpty = tasks.length === 0;

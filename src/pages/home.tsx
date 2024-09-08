@@ -4,7 +4,6 @@ import getTasks from '../services/getTasks';
 import { TaskStatus } from '../types/taskStatus';
 import { UpdateTask } from '../types/tasks';
 import { toast } from 'react-toastify';
-import { BsEmojiNeutral } from "react-icons/bs";
 import EmptyTask from '../components/emptyTask';
 import LayoutContainer from '../components/layoutContainer';
 
