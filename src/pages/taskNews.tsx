@@ -18,6 +18,7 @@ const TaskNews = () => {
     const [taskInfoArray, setTaskInfoArray] = useState<TaskNewsInfo[]>([]);
     const { id } = useParams();
     const [loading, setLoading] = useState(false);
+    const [taskIsConcluded,setTaskIsConcluded] = useState(false);
 
 
 
@@ -26,11 +27,15 @@ const TaskNews = () => {
             setLoading(true);
             try {
                 const task = await getTask(id)
-                const fetchedTaskNews = await getNews(id);
                 setTask(task)
+                const fetchedTaskNews = await getNews(id);
                 setTaskInfoArray(fetchedTaskNews);
 
-            } catch (error) {
+            } catch (error:any) {
+                if(error.status === 422){
+                setTaskIsConcluded(true)
+                return
+                }
                 toast.error('Falha ao buscar assuntos');
             } finally {
                 setLoading(false);
@@ -50,7 +55,7 @@ const TaskNews = () => {
         <LayoutContainer>
             {loading ? <div className="text-center text-custom-purple">Carregando Notícias...</div> :
                 <TaskInfoSection task={task} />}
-            {
+            { taskIsConcluded? <NotFoundWarning message="Não é possível buscar asuntos para tarefas já concluídas" /> :
                 hasNews ?
                     (<div>
                         <div className="space-y-6">

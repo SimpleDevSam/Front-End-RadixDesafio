@@ -8,8 +8,7 @@ interface TaskInfoSectionProps {
 const TaskInfoSection = (props:TaskInfoSectionProps) => {
     return (
         <div>
-            <MainTitle
-        message={` Veja as noticias relacionadas à tarefa ${props.task?.title}`}/>
+            <MainTitle message={` Veja as noticias relacionadas à tarefa ${props.task?.title}`}/>
         <div className='flex flex-row'>
             <p className="text-2xl mb-4 font-bold text-custom-purple">
                 Palavras-chave:
