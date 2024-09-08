@@ -11,10 +11,11 @@ import { Task } from '../types/tasks';
 import { toast } from 'react-toastify';
 import formatDate from '../shared/dateHelper';
 import ConfirmationModal from '../components/confirmationModal';
-import EmptyTask from '../components/emptyTask';
+import NotFoundWarning from '../components/notFoundWarning';
 import LayoutContainer from '../components/layoutContainer';
 import deleteTask from '../services/tasks/deleteTask';
 import getTasks from '../services/tasks/getTasks';
+import MainTitle from '../components/MainTitle';
 
 const statusColors = {
   [TaskStatus.Pendente]: 'bg-custom-red',
@@ -102,7 +103,8 @@ const TasksPage = () => {
   return (
     <LayoutContainer>
       <div className='flex flex-row justify-between'>
-        <p className="text-2xl font-bold text-custom-purple mb-4">Ver tarefas</p>
+        <MainTitle
+        message='Ver Tarefas'/>
         <div onClick={handleNavigateToCreateTask} className='cursor-pointer flex items-center gap-x-2 px-3 py-1 rounded-full bg-white outline outline-custom-purple outline-1 w-1/8 hover:bg-custom-purple hover:text-white transition duration-300'>
           <FaPlus className='text-custom-purple text-4xl hover:bg-custom-purple hover:text-white' />
           <p className='text-bottom'>Adicionar tarefa</p>
@@ -114,7 +116,7 @@ const TasksPage = () => {
          :
         isTasksEmpty ?
           <div className='flex flex-col justify-center items-center w-1/2 gap-4 mx-auto'>
-            <EmptyTask />
+            <NotFoundWarning message="Não foram encontradas tarefas" />
           </div>
           :
           tasks.map(task => (

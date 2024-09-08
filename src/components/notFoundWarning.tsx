@@ -1,16 +1,20 @@
 import { BsEmojiNeutral } from 'react-icons/bs';
-const EmptyTask = () => {
+
+interface NotFoundWarningProps {
+  message: string
+}
+const NotFoundWarning = (props: NotFoundWarningProps) => {
   return (
     <div className='justify-center flex flex-col'>
       <div className='flex items-center gap-x-4'>
         <BsEmojiNeutral className='text-custom-purple text-6xl' />
-        <p className="text-2xl text-custom-purple">Não há tarefas registradas</p>
+        <p className="text-2xl text-custom-purple">{props.message}</p>
       </div>
     </div>
 
   )
 };
 
-export default EmptyTask;
+export default NotFoundWarning; 
 
 

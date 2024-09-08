@@ -4,9 +4,10 @@ import { useNavigate } from 'react-router-dom';
 import { TaskStatus } from '../types/taskStatus';
 import { UpdateTask } from '../types/tasks';
 import { toast } from 'react-toastify';
-import EmptyTask from '../components/emptyTask';
+import NotFoundWarning from '../components/notFoundWarning';
 import LayoutContainer from '../components/layoutContainer';
 import getTasks from '../services/tasks/getTasks';
+import MainTitle from '../components/MainTitle';
 
 
 
@@ -51,7 +52,8 @@ const Home = () => {
     return (
         <LayoutContainer>
             <div className="mb-8  ">
-                <h1 className="text-2xl font-bold text-custom-purple">Dashboard</h1>
+                <MainTitle
+                message='DashBoard'/>
             </div>
             <div>
                 {loading ?  <div className="text-center text-custom-purple">Carregando tarefas...</div>
@@ -59,7 +61,7 @@ const Home = () => {
                 isTasksEmpty ?
                     (
                         <div className='flex flex-col justify-center items-center w-1/2 gap-4 mx-auto'>
-                            <EmptyTask />
+                            <NotFoundWarning message="Não foram encontradas tarefas" />
                             <button
                                 onClick={handleNavigateToCreateTask}
                                 className="w-1/2 p-4 my-24 border-2 border-custom-purple text-custom-purple font-bold rounded-full hover:bg-custom-purple hover:text-white transition duration-300"

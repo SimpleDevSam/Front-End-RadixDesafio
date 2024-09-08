@@ -7,6 +7,8 @@ import getNews from '../services/news/getNews';
 import type TaskNewsInfo from '../types/taskNews';
 import getTask from "../services/tasks/getTask";
 import { Task } from '../types/tasks';
+import NotFoundWarning from '../components/notFoundWarning';
+import TaskInfoSection from '../components/TaskInfoSection';
 
 
 
@@ -47,33 +49,27 @@ const TaskNews = () => {
     return (
         <LayoutContainer>
             {loading ? <div className="text-center text-custom-purple">Carregando Notícias...</div> :
+                <TaskInfoSection task={task} />}
+            {
                 hasNews ?
                     (<div>
-                        <div>
-                            <p className="text-2xl mb-4 font-bold text-custom-purple">
-                                Veja as noticias relacionadas à tarefa {task?.title}
-                            </p>
-                            <div className='flex flex-row'>
-                                <p className="text-2xl mb-4 font-bold text-custom-purple">
-                                    Palavras-chave: 
-                                </p>
-                                <p className="text-2xl mb-4 text-custom-purple">
-                                    {task?.keywords.join(',')}
-                                </p>
-                            </div>
-                        </div>
                         <div className="space-y-6">
                             {taskInfoArray.map(news => (
                                 <div key={news.author} className="p-6 bg-white border border-custom-purple rounded-lg shadow">
                                     <p className="text-lg font-semibold text-custom-purple mb-2">{news.title}</p>
                                     <a href={`${news.url}`}
                                         target="_blank"
+                                        rel="noreferrer"
                                     >{news.url}</a>
                                 </div>
                             ))}
                         </div>
                     </div>)
-                    : (<p>Teste</p>)
+                    :
+                    <div>
+                        <NotFoundWarning message="Não foram encontradas notícias relacionadas as palavras-chave." />
+                    </div>
+
             }
         </LayoutContainer>
     );

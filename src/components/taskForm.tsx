@@ -88,7 +88,11 @@ const TaskForm = ({ task }: TaskFormProps) => {
       </div>
 
       <div>
-        <label htmlFor="keywords" className="block text-custom-blue font-semibold mb-2">Palavras-chave</label>
+        <div className="flex flex-row items-center">
+          <label htmlFor="keywords" className="block text-custom-blue font-semibold mb-2">Palavras-chave</label>
+          <label htmlFor="keywords" className=" ml-4 block text-custom-blue text-xs mb-2">(Para adicionar, digite e aperte Enter)</label>
+        </div>
+
         <div className="w-full px-4 py-1 border border-custom-purple bg-transparent rounded flex flex-wrap items-center gap-2">
           {formik.values.keywords.map((keyword, index) => (
             <div key={index} className="bg-custom-purple text-white px-2 py-1 rounded-full flex items-center space-x-2">
