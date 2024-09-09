@@ -1,46 +1,39 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Front-end Gerenciamento de Tarefas
 
-## Available Scripts
+## Introdução
 
-In the project directory, you can run:
+Este é o front-end de um projeto de gerenciamento de tarefas, desenvolvido para uma entrevista técnica na Radix.
 
-### `npm start`
+## Funcionalidades
+- **Gerenciamento de Tarefas:**
+  -    Adicionar tarefas 
+  -    Excluir tarefas
+  -  Listar todas as tarefas
+  -  Atualizar tarefas
+ - **Integração com notícias:**
+   -    Exibe notícias relacionadas às palavras-chave das tarefas.
+  
+## Instalação
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+1. Clone o repositório:
+ `git clone git clone https://github.com/SimpleDevSam/Front-End-RadixDesafio `
+  2. Instalar dependências:
+ `npm install`
+ 3. Rodar projeto em dev:
+ `npm run start:dev ou npm run start `
+ Para visualizar, abra navegador em [text](http://localhost:3000)
+  4. Compilar para prod:
+ `npm run build`
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+##Dependências/bibliotecas
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+-   **react**: biblioteca utilizada para criar e rodar o projeto.
+-   **react-dom e react-router-dom**: pacotes do react para manipulação de DOM e roteamento.
+-   **react-icons**: repositório de ícones utilizados.
+-   **react-toastify**: pacote do toastify em react para mostrar mensagens de erro dinâmicas.
+-   **typescript**: biblioteca usada para habilitar o uso de typescript no projeto, facilitando a tipagem.
+-   **yup**: biblioteca utilizada para criar schemas a serem validados.
+-   **formik**: biblioteca utlizada para gerenciar formulários, seu estado e em conjunto com yup, realizar a validação em client-side.
+-   **axios**: biblioteca utilizada para realizar chamadas http.
+-   **uuid**: Para gerar IDs únicos para as tarefas.

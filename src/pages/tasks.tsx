@@ -28,7 +28,7 @@ const TasksPage = () => {
   const [taskToDelete, setTaskToDelete] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const tasksPerPage = 5;  // Show 5 tasks per page
+  const tasksPerPage = 5;
   const navigate = useNavigate();
   const isTasksEmpty = tasks.length === 0;
 
