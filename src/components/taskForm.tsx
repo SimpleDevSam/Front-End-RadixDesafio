@@ -62,8 +62,12 @@ const TaskForm = ({ task }: TaskFormProps) => {
   const handleAddKeyWord = (e: any) => {
     if (e.key === "Enter" && inputKeywordValue.trim()) {
       e.preventDefault();
-      formik.setFieldValue("keywords", [...formik.values.keywords, inputKeywordValue.trim()]);
-      setInputKeywordValue("");
+      if (!/^\d+$/.test(inputKeywordValue.trim())) {
+        formik.setFieldValue("keywords", [...formik.values.keywords, inputKeywordValue.trim()]);
+        setInputKeywordValue("");
+      } else {
+        toast.warning("A palavra-chave não pode ser um número.");
+      }
     }
   };
 

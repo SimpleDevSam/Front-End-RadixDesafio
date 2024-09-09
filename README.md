@@ -16,6 +16,10 @@ Este é o front-end de um projeto de gerenciamento de tarefas, desenvolvido para
 
 ## Versão do node
 v20.14.0
+
+## Variáveis de ambiente
+- REACT_APP_API_URL_PROD=https://back-end-h5fu.onrender.com/
+- REACT_APP_API_URL_DEV=http://localhost:3001
   
 ## Instalação
 
@@ -28,6 +32,9 @@ v20.14.0
  Para visualizar, abra navegador [neste link](http://localhost:3000)
   4. Compilar para prod:
  `npm run build`
+
+ ## Testes
+- Não foram implementados testes nessa aplicação.
 
 ##Dependências/bibliotecas
 
