@@ -13,6 +13,9 @@ Este é o front-end de um projeto de gerenciamento de tarefas, desenvolvido para
   -  Atualizar tarefas
  - **Integração com notícias:**
    -    Exibe notícias relacionadas às palavras-chave das tarefas.
+
+## Versão do node
+v20.14.0
   
 ## Instalação
 
