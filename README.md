@@ -36,7 +36,7 @@ v20.14.0
  ## Testes
 - Não foram implementados testes nessa aplicação.
 
-##Dependências/bibliotecas
+## Dependências/bibliotecas
 
 -   **react**: biblioteca utilizada para criar e rodar o projeto.
 -   **react-dom e react-router-dom**: pacotes do react para manipulação de DOM e roteamento.
