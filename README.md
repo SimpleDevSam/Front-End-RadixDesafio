@@ -22,7 +22,7 @@ Este é o front-end de um projeto de gerenciamento de tarefas, desenvolvido para
  `npm install`
  3. Rodar projeto em dev:
  `npm run start:dev ou npm run start `
- Para visualizar, abra navegador em [text](http://localhost:3000)
+ Para visualizar, abra navegador [neste link](http://localhost:3000)
   4. Compilar para prod:
  `npm run build`
 
