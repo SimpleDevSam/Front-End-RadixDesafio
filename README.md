@@ -13,6 +13,10 @@ Este é o front-end de um projeto de gerenciamento de tarefas, desenvolvido para
   -  Atualizar tarefas
  - **Integração com notícias:**
    -    Exibe notícias relacionadas às palavras-chave das tarefas.
+
+## Variáveis de ambiente
+REACT_APP_API_URL_PROD=https://back-end-h5fu.onrender.com/
+REACT_APP_API_URL_DEV=http://localhost:3001
   
 ## Instalação
 
