@@ -30,6 +30,9 @@ Este é o front-end de um projeto de gerenciamento de tarefas, desenvolvido para
   4. Compilar para prod:
  `npm run build`
 
+ ## Testes
+- Não foram implementados testes nessa aplicação.
+
 ##Dependências/bibliotecas
 
 -   **react**: biblioteca utilizada para criar e rodar o projeto.
