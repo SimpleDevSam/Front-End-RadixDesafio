@@ -1,7 +1,7 @@
 import { apiInstance } from "./apiInstance";
 
   async function getTasks() {
-    const response = await apiInstance.get('/task')
+    const response = await apiInstance.get('/tasks')
     return response.data.data
   }
 

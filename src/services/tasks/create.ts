@@ -7,7 +7,7 @@ export const createTask= async (
   ): Promise<any> => {
 
     const response = await apiInstance.post(
-      `/task`,
+      `/tasks`,
       task
     );
     return response;

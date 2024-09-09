@@ -7,7 +7,7 @@ export const  getTask= async (
   ): Promise<Task> => {
 
     const response = await apiInstance.get(
-      `/task/${id}`
+      `/tasks/${id}`
     );
     return response.data.data;
   };

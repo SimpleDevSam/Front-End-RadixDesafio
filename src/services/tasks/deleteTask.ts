@@ -2,7 +2,7 @@ import { apiInstance } from "./apiInstance";
 
 export const deleteTask= async (id:string): Promise<number> => {
   const response = await apiInstance.delete(
-    `/task/${id}`
+    `/tasks/${id}`
   );
   return response.status;
 };
